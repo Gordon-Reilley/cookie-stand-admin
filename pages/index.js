@@ -1,11 +1,15 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from '@next/font/google'
-import styles from '@/styles/Home.module.css'
+import Head from 'next/head';
+import { Inter } from '@next/font/google';
+import Link from 'next/link';
+import { replies } from '@/data';
+import { useState } from 'react';
 
-const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
+  function questionAskHandler(event) {
+    event.preventDefault();
+    alert(event.target.question.value);
+  }
   return (
     <>
       <Head>
@@ -15,16 +19,45 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <header className='flex justify-between items-center font-serif p-4 bg-green-300 text-black'>
-      <h1 className="text-4xl">Cookie Stand Admin</h1>
-        
+        <h1 className="text-4xl">Cookie Stand Admin</h1>
+
       </header>
 
       <main className=''>
-        
+        <form className="flex w-1/2 p-2 mx-auto my-4 bg-green-300" onSubmit={questionAskHandler}>
+          <input name="question" className="flex-auto pl-1" />
+          <button className="px-2 py-1 bg-purple-500 text-gray-50">Ask</button>
+        </form>
+
+        <div className="w-96 h-96 mx-auto my-4 bg-gray-900 rounded-full">
+          <div className="relative flex items-center justify-center w-48 h-48 rounded-full bg-gray-50 top-16 left-16">
+            <p className="text-xl text-center">ask a question</p>
+          </div>
+        </div>
+
+        <table className="w-1/2 mx-auto my-4">
+          <thead>
+            <tr>
+              <th className="border border-gray-700">No.</th>
+              <th className="border border-gray-700">Question</th>
+              <th className="border border-gray-700">Response</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td className="pl-2 border border-gray-700">1. </td>
+              <td className="pl-2 border border-gray-700">Will it rain?</td>
+              <td className="pl-2 border border-gray-700">Yes.</td>
+            </tr>
+          </tbody>
+        </table>
       </main>
 
-      <footer className='p-4 mt-8 bg-gray-500 text-gray-50'>
-       
+      <footer className='p-4 mt-8 bg-green-300 text-black text-center'>
+        <p>&copy; 2023</p>
+        <Link href={"/careers"} className='text-black hover:text-purple-900'>
+          Careers
+        </Link>
       </footer>
     </>
   )
