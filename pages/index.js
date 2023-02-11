@@ -6,10 +6,33 @@ import { useState } from 'react';
 
 
 export default function Home() {
+
+  // const[reply, setReply]  = useState('Ask a Question!')
+  const[answeredQuestions, setAnsweredQuestions]  = useState([]);
+
   function questionAskHandler(event) {
     event.preventDefault();
-    alert(event.target.question.value);
+    const randomReply = replies[Math.floor(Math.random() * replies.length)]
+
+    const answeredQuestion = {
+      question: event.target.question.value,
+      reply: randomReply,
+      id: answeredQuestions.length
+    }
+
+    // alert(event.target.question.value);
+    // alert(randomReply);
+
+    setAnsweredQuestions([...answeredQuestions, answeredQuestion]);
   }
+
+  function getLatestReply() {
+    if (answeredQuestions.length === 0){
+      return 'Ask A Question!';
+    }
+    return answeredQuestions[answeredQuestions.length - 1].reply;
+  }
+
   return (
     <>
       <Head>
@@ -20,7 +43,7 @@ export default function Home() {
       </Head>
       <header className='flex justify-between items-center font-serif p-4 bg-green-300 text-black'>
         <h1 className="text-4xl">Cookie Stand Admin</h1>
-
+        <p>{answeredQuestions.length} questions answered</p>
       </header>
 
       <main className=''>
@@ -31,7 +54,7 @@ export default function Home() {
 
         <div className="w-96 h-96 mx-auto my-4 bg-gray-900 rounded-full">
           <div className="relative flex items-center justify-center w-48 h-48 rounded-full bg-gray-50 top-16 left-16">
-            <p className="text-xl text-center">ask a question</p>
+            <p className="text-xl text-center">{getLatestReply()}</p>
           </div>
         </div>
 
